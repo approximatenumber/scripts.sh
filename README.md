@@ -14,21 +14,23 @@ Some scripts on bash/sh
 
 Разложим информацию про каждое слово в отдельный файл.
 
-<code>#!/bin/bash
-
+<code>
+#!/bin/bash
 lines=1684 # кол-во строк в файле со словами, куда-то подевалось 16 слов!!!
-
 mkdir /tmp/voc
-
 for i in `seq -w 1 $lines`
     do
-
         first=`sed -n "$i"p words`
         next=`expr $i + 1`
         second=`sed -n "$next"p words`
-
         cat <file>| sed -n "/${first}/,/${second}/p"| sed '$d' > /tmp/voc/$i.voc
-done </code>
+done
+</code>
 
 Теперь сделаем из текста картинки для фоторамки (интересный параметр caption, с помощью которого imagemacgick пытается вместить текст в границы размеров картинки)
-`cd /tmp/voc; for i in `ls`; do cat $i| convert -background white -fill black -font URW-Chancery-L-Medium-Italic -border 5 -bordercolor white -size 480x234 -gravity NorthWest caption:@- $i.jpg; done`
+<code>
+cd /tmp/voc
+for i in `ls`
+    do cat $i| convert -background white -fill black -font URW-Chancery-L-Medium-Italic -border 5 \
+    -bordercolor white -size 480x234 -gravity NorthWest caption:@- $i.jpg; done
+</code>
